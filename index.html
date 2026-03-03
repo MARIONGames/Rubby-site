@@ -669,7 +669,7 @@
   let host = loc.hostname;
   let port = loc.port;
   let protocol = loc.protocol;
-  if (host === 'localhost' || host === '127.0.0.1') {
+  if (host === 'http://192.168.2.2:5000') {
     // assume backend listening on port 5000 during local development
     window.API_BASE = `${protocol}//${host}:5000`;
   } else {
@@ -682,3 +682,4 @@
 <script src="0103905.js"></script>
 </body>
 </html>
+
