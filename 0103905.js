@@ -131,7 +131,7 @@ async function sendMessage() {
       max_tokens: parseInt(maxTokens.value),
     };
 
-    const res = await fetch('http://127.0.0.1:5000/api/chat', {
+    const res = await fetch(`${API_BASE}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -348,7 +348,7 @@ function showToast(msg, duration = 2000) {
 /* ===== Load conversations from server ===== */
 async function loadConversations() {
   try {
-    const res = await fetch('http://127.0.0.1:5000/api/conversations');
+    const res = await fetch(`${API_BASE}/api/conversations`);
     const data = await res.json();
     renderConversationList(data.sessions || []);
   } catch (e) { /* ignore */ }
@@ -405,7 +405,7 @@ async function loadSession(sid) {
   if (window.innerWidth <= 640) sidebar.classList.remove('open');
 
   try {
-    const res = await fetch(`http://127.0.0.1:5000/api/conversations/${sid}`);
+    const res = await fetch(`${API_BASE}/api/conversations/${sid}`);
     const data = await res.json();
     topbarTitle.textContent = 'Chat';
     (data.messages || []).forEach(m => {
@@ -418,7 +418,7 @@ async function loadSession(sid) {
 
 async function deleteConversation(sid) {
   try {
-    await fetch(`http://127.0.0.1:5000/api/conversations/${sid}`, { method: 'DELETE' });
+    await fetch(`${API_BASE}/api/conversations/${sid}`, { method: 'DELETE' });
     if (sid === sessionId) newSession();
     await loadConversations();
   } catch (e) {
